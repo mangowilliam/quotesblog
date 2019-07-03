@@ -14,7 +14,7 @@ class QuoteTest(unittest.TestCase):
         self.new_quote = Quote(1,'mango','try me even now','http://quotes.stormconsultancy.co.uk/quotes/7')
 
     def test_instance(self):
-        self.assertTrue(isinstance(self.new_quote,Quote))
+        self.assertTrue(isinstance(self.new_quote,Quote,))
 
 
 if __name__ == '__main__':
