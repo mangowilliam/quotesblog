@@ -1,5 +1,5 @@
 import unittest
-from app.user import Quote
+from app.user import Quote,User,Blog
 
 
 class QuoteTest(unittest.TestCase):
@@ -15,6 +15,23 @@ class QuoteTest(unittest.TestCase):
 
     def test_instance(self):
         self.assertTrue(isinstance(self.new_quote,Quote,))
+        
+        
+class UserModelTest(unittest.TestCase):
+    
+    def setUp(self):
+        self.new_user = User(password = 'banana')
+
+    def test_password_setter(self):
+        self.assertTrue(self.new_user.pass_secure is not None)
+
+class BlogModelTest(unittest.TestCase):
+    
+    def setUp(self):
+        self.new_blog = Blog(1,"blog1", "power is power","",'come on')
+
+    def test_password_setter(self):
+        self.assertTrue(self.new_blog.pass_secure is not None)
 
 
 if __name__ == '__main__':
