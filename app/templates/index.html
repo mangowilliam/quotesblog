@@ -11,15 +11,33 @@
 <body>
  
     {% block content %}
+    <div class="container">
     <h1> GENERAL QUOTES BLOG </h1>
 
     <div class="well-lg" id="random">
-            <h2>Random Quote</h2> <br>
+            <h1>Random Quote</h1> <br>
             <p>quote ID: {{quote.id}}</p> 
             <p>{{quote.quote}}</p>
             <p>Author: {{quote.author}}</p> 
             <p>{{quote.permalink}}</p> 
         </div>
+    </div>
+    <div class="container">
+
+        <h1>QUOTES BLOG</h1>
+
+        <div class="row">
+            {% for blog in blogs %}
+            <div class="col-md-3">
+                <div class="container">
+                    <h1>{{blog.title}}</h1>
+                    <p>{{ pitches.content }}</p>
+                    <a href="{{url_for('main.new_blog',blog_id = blogs.id)}}" class="btn btn-info"> Add a comment</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
     
     {% endblock %}
 </body>
