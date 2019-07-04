@@ -28,6 +28,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(150), nullable=False)
     image = db.Column(db.String(20), nullable=False, default="default.jpg")
+    bio = db.Column(db.String(255))
     password = db.Column(db.String(70), nullable=False)
     blogs = db.relationship('Blog', backref='author', lazy="dynamic")
     comment = db.relationship('Comment', backref='user', lazy='dynamic')
