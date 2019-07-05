@@ -55,17 +55,17 @@ class Blog(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(110), nullable=False)
-    quote = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     comment = db.relationship('Comment', backref='pitch', lazy='dynamic')
     
     @classmethod
-    def get_pitches(cls, id):
+    def get_blogs(cls, id):
         blogs = Blog.query.order_by(blog_id=id).desc().all()
         return blogs
 
     def __repr__(self):
-        return f'Pitch {self.content}'
+        return f'Blog {self.content}'
     
 class Comment(db.Model):
     __tablename__ = 'comments'

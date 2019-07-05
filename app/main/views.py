@@ -11,7 +11,7 @@ from .. import db,photos
 
 
 
-@main.route('/')
+@main.route('/', methods = ['GET','POST'])
 def index():
     
     '''
@@ -19,11 +19,12 @@ def index():
     '''
     title ='my blogquote'
     quote=get_quote()
-    blogs=Blog.query.all()
-    return render_template('index.html',title=title,quote=quote,blogs=blogs)
+    new_blogs=Blog.query.all()
+    return render_template('index.html',title=title,quote=quote,new_blogs=new_blogs)
 
 @main.route('/blog/new', methods=['GET', 'POST'])
-def new_pitch():
+@login_required
+def new_blogs():
     """
     view blog function to create a new blog
     """
@@ -31,19 +32,20 @@ def new_pitch():
 
     if blog_form.validate_on_submit():
         title = blog_form.title.data
-        content = blog_form.description.data
-        user_id= current_user
+        content = blog_form.content.data
+        user_id = current_user
         print(current_user._get_current_object().id)
-        new_blog = Blog(user_id = current_user._get_current_object().id,title=title, content=content)
+        new_blog = Blog(user_id = current_user._get_current_object().id, content=content, title=title)
        
         db.session.add(new_blog)
         db.session.commit()
         
-        return redirect(url_for('main.index',))
+        return redirect(url_for('main.index'))
 
     return render_template('new_blog.html',  blog_form=blog_form)
 
 @main.route('/user/<uname>')
+@login_required
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
