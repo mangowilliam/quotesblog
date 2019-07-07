@@ -28,15 +28,23 @@
         <h1>QUOTES BLOG</h1>
 
         <div class="row">
-            {% for blogs in blogs %}
-            <div class="col-md-3">
-                <div class="container">
-                    <h1>{{new_blog.title}}</h1>
-                    <p>{{ new_blogs.content }}</p>
-                    <a href="{{url_for('main.new_blog',blog_id = blogs.id)}}" class="btn btn-info"> Add a comment</a>
-                </div>
+            {% for blog in blogs %}
+            <div class="col-md-6">
+                
+                    <h2>{{blog.title}}</h2>
+                    <p>{{blog.content }}</p>
+        
+                    <a href="{{url_for('main.new_comment',id = blog.id)}}" class="btn btn-info"> Add a comment</a>
+                    <a href="{{url_for('main.delete_blog',id= blog.id)}}"class="btn btn-info">delete</a>
+                    
+        {% else %}
+        <p> </p>
+            
             </div>
             {% endfor %}
+            {%for comment in comments%}
+            <p>{{comment.content}}</p>
+            <em>{%endfor%}</em>
         </div>
     </div>
     

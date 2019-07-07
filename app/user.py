@@ -63,6 +63,10 @@ class Blog(db.Model):
     def get_blogs(cls, id):
         blogs = Blog.query.order_by(blog_id=id).desc().all()
         return blogs
+    
+    def delete_blog(self):
+        db.session.delete(self)
+        db.session.commit()
 
     def __repr__(self):
         return f'Blog {self.content}'
@@ -75,6 +79,17 @@ class Comment(db.Model):
         'blogs.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     content = db.Column(db.Text)
+    
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def get_comment(cls,id):
+        comment = Blog.query.filter_by(blog_id=id).all()          
+        return comment
+    def delete_comment(self):
+        db.session.delete(self)
+        db.session.commit()
 
-    def __repr__(self):
-        return f"Comment : id: {self.id} comment: {self.content}"
+
