@@ -19,8 +19,8 @@ def index():
     '''
     title ='my blogquote'
     quote=get_quote()
-    new_blogs=Blog.query.all()
-    return render_template('index.html',title=title,quote=quote,new_blogs=new_blogs)
+    blog=Blog.query.all()
+    return render_template('index.html',title=title,quote=quote,blog=blog)
 
 @main.route('/blog/new', methods=['GET', 'POST'])
 @login_required
@@ -33,7 +33,6 @@ def new_blogs():
     if blog_form.validate_on_submit():
         title = blog_form.title.data
         content = blog_form.content.data
-        user_id = current_user
         print(current_user._get_current_object().id)
         new_blog = Blog(user_id = current_user._get_current_object().id, content=content, title=title)
        
