@@ -98,7 +98,7 @@ def update_pic(uname):
 
 
 @main.route('/comment/new/<int:blog_id>', methods=['GET', 'POST'])
-
+@login_required
 def new_comment(blog_id):
     form = CommentForm()
     blog=Blog.query.get(blog_id)

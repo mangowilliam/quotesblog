@@ -1,1 +1,1 @@
-web: gunicorn manage:appheroku login
+web: gunicorn manage:app
