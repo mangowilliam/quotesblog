@@ -1,53 +1,52 @@
 {% extends 'base.html'%}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+  <script src='main.js'></script>
 </head>
+
 <body>
- 
-    {% block content %}
-    <div class="container">
+
+  {% block content %}
+  <div class="container">
     <h1> GENERAL QUOTES BLOG </h1>
 
     <div class="well-lg" id="random">
-            <h1>Random Quote</h1> <br>
-            <p>quote ID: {{quote.id}}</p> 
-            <p>{{quote.quote}}</p>
-            <p>Author: {{quote.author}}</p> 
-            <p>{{quote.permalink}}</p> 
-            <a href="{{url_for('main.index',quote_id = quote.id)}}" class="btn btn-info"> RANDOM</a>
-        </div>
+      <h1>Random Quote</h1> <br>
+      <p>quote ID: {{quote.id}}</p>
+      <p>{{quote.quote}}</p>
+      <p>Author: {{quote.author}}</p>
+      <p>{{quote.permalink}}</p>
+      <a href="{{url_for('main.index',quote_id = quote.id)}}" class="btn btn-info"> RANDOM</a>
     </div>
-    <div class="container">
+  </div>
+  <div class="container">
 
-        <h1>QUOTES BLOG</h1>
+    <h1>QUOTES BLOG</h1>
 
-        <div class="row">
-            {% for blog in blogs %}
-            <div class="col-md-6">
-                
-                    <h2>{{blog.title}}</h2>
-                    <p>{{blog.content }}</p>
-        
-                    <a href="{{url_for('main.new_comment',id = blog.id)}}" class="btn btn-info"> Add a comment</a>
-                    <a href="{{url_for('main.delete_blog',id= blog.id)}}"class="btn btn-info">delete</a>
-                    
+    <div class="row">
+      {% for blog in blogs %}
+      <div class="col-md-6">
+
+        <h2>{{blog.title}}</h2>
+        <p>{{blog.content }}</p>
+
+        <a href="{{url_for('main.new_comment',id = blog.id)}}" class="btn btn-info"> Add a comment</a>
+        <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-info">delete</a>
+
         {% else %}
-        <p> </p>
-            
-            </div>
-            {% endfor %}
-            {%for comment in comments%}
-            <p>{{comment.content}}</p>
-            <em>{%endfor%}</em>
-        </div>
+      </div>
+
+      {%endfor%}
     </div>
-    
-    {% endblock %}
+  </div>
+
+  {% endblock %}
 </body>
+
 </html>
