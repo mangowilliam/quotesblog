@@ -1,6 +1,6 @@
 import unittest
 
-from app.user import Blog, Quote, User
+from app.user import Blog, Quote, User,Comment
 
 
 class QuoteTest(unittest.TestCase):
@@ -34,7 +34,7 @@ class BlogModelTest(unittest.TestCase):
         self.new_blog = Blog(1, "blog1", "power is power", "", 'come on')
 
     def test_password_setter(self):
-        self.assertTrue(self.new_blog.pass_secure is not None)
+        self.assertTrue(self.new_blog is not None)
         
 class CommentsModelTest(unittest.TestCase):
     
