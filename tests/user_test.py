@@ -35,7 +35,14 @@ class BlogModelTest(unittest.TestCase):
 
     def test_password_setter(self):
         self.assertTrue(self.new_blog.pass_secure is not None)
+        
+class CommentsModelTest(unittest.TestCase):
+    
+    def setUp(self):
+        self.new_comment = Comment(1, "blog1", "1", 'come all')
 
+    def test_password_setter(self):
+        self.assertTrue(self.new_comment is not None)
 
 if __name__ == '__main__':
     unittest.main()

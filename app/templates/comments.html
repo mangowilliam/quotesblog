@@ -18,7 +18,15 @@
       {{wtf.quick_form(form)}}
     </div>
     <div class="col-md-12">
-
+      <div class = "jumbotron">
+        <h1>comments</h1>
+      {% for comment in comments %}
+				<div >
+            <a><p style="color: brown">{{comment.content}}</p></a>
+            <a href="{{url_for('main.delete_comment',id= blog.id)}}" class="btn btn-danger">delete</a>
+				</div>
+      {% endfor %}
+      </div>
     </div>
 
   </div>

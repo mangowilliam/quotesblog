@@ -6,7 +6,7 @@ from app.request import get_quote
 from .. import db, photos
 from ..user import Blog, Comment, User
 from .forms import BlogForm, CommentForm, UpdateProfile
-from .import main
+from . import main
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -44,6 +44,7 @@ def blogs():
 
 
 @main.route('/delete/blog,<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete_blog(id):
     blog = Blog.query.filter_by(id=id).first()
 
@@ -96,26 +97,28 @@ def update_pic(uname):
     return redirect(url_for('main.profile', uname=uname))
 
 
-@main.route('/comment/new/<int:id>', methods=['GET', 'POST'])
-@login_required
-def new_comment(id):
-    my_blog = Blog.query.get(id)
-    form = CommentForm()
+@main.route('/comment/new/<int:blog_id>', methods=['GET', 'POST'])
 
+def new_comment(blog_id):
+    form = CommentForm()
+    blog=Blog.query.get(blog_id)
     if form.validate_on_submit():
         content = form.content.data
 
-        new_comment = Comment(
-            content=content, user_id=current_user._get_current_object().id, blog_id=id)
-        new_comment.save_comment()
+        
+        new_comment=Comment(content=content, user_id=current_user._get_current_object().id, blog_id=blog_id)
+        db.session.add(new_comment)
+        db.session.commit()
+        
+        return redirect(url_for('.new_comment', blog_id=blog_id))
 
-        all_comments = Comment.get_comments(id)
-        return redirect(url_for('.new_comment', id=id))
-
-    return render_template('comments.html', form=form, blog=my_blog, comments=all_comments)
+    comments = Comment.query.filter_by(blog_id = blog_id).all()
+    print(comments)
+    return render_template('comments.html', form=form, blog=blog, comments=comments)
 
 
 @main.route('/delete/new/<int:id>', methods=['GET', 'POST'])
+@login_required
 def delete_comment(id):
     comment = Comment.query.filter_by(id=id).first()
     form = CommentForm()

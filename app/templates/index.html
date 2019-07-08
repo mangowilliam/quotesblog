@@ -15,7 +15,7 @@
   {% block content %}
   <div class="container">
     <h1> GENERAL QUOTES BLOG </h1>
-
+    <div class="jumbotron">
     <div class="well-lg" id="random">
       <h1>Random Quote</h1> <br>
       <p>quote ID: {{quote.id}}</p>
@@ -24,25 +24,27 @@
       <p>{{quote.permalink}}</p>
       <a href="{{url_for('main.index',quote_id = quote.id)}}" class="btn btn-info"> RANDOM</a>
     </div>
+    </div>
   </div>
   <div class="container">
-
+      <div class= "jumbotron">
     <h1>QUOTES BLOG</h1>
-
+    
     <div class="row">
+       
       {% for blog in blogs %}
       <div class="col-md-6">
 
         <h2>{{blog.title}}</h2>
         <p>{{blog.content }}</p>
 
-        <a href="{{url_for('main.new_comment',id = blog.id)}}" class="btn btn-info"> Add a comment</a>
-        <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-info">delete</a>
+        <a href="{{url_for('main.new_comment',blog_id = blog.id)}}" class="btn btn-info"> Add a comment</a>
+        <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-danger">delete</a>
 
-        {% else %}
       </div>
 
       {%endfor%}
+      </div>
     </div>
   </div>
 
