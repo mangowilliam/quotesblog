@@ -27,7 +27,7 @@ users can also random quotes by reloading or clicking on the random button
 -   The system flow is simple.
     ## BDD
     | Behavior            | Input                   | Outcome                            |
-    \| --------------------\|-------------------------\| -----------------------------------\|
+    |---------------------|-------------------------| -----------------------------------|
     | display random quote| reloaad/click random    | rrandom quotes                     |
     | add  a q  quote     | fill oute the quote form| new quote posted                   |  
     | view blog           | click on heroku link    | random and recent quotes           |
