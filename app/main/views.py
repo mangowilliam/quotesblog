@@ -1,12 +1,12 @@
-from flask import abort, redirect, render_template, request, url_for
+from flask import abort, redirect, render_template, request, url_for,abort,flash
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app.request import get_quote
 
 from .. import db, photos
 from ..user import Blog, Comment, User
-from .forms import BlogForm, CommentForm, UpdateProfile
 from . import main
+from .forms import BlogForm, CommentForm, UpdateProfile,UpForm
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -47,11 +47,39 @@ def blogs():
 @login_required
 def delete_blog(id):
     blog = Blog.query.filter_by(id=id).first()
-
     if blog is not None:
         blog.delete_blog()
-        return redirect(url_for('main.index'))
-    return render_template('index.html')
+  
+    return redirect(url_for('main.index',))
+
+@main.route("/blog/update/<int:id>", methods=['GET', 'POST'])
+@login_required
+def update_blog(id):
+    blog = Blog.query.filter_by(id = id).first()
+    if blog is None:
+        abort(404)
+    form = UpForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        content = form.content.data
+        print(current_user._get_current_object().id)
+        blog = Blog(user_id=current_user._get_current_object().id,
+                title=title, content=content)
+        
+        db.session.add(blog)
+        db.session.commit()
+    
+        return redirect(url_for('main.index', blog_id=blog.id))
+    elif request.method == 'GET':
+        title = form.title.data
+        content = form.content.data
+    return render_template('blog.html',form=form)
+
+#@main.route('/blog/<blog_id>')
+#def bloging(blog_id):
+   # blog = Blog.query.get_or_404(blog_id)
+   # return render_template('blog.html', title=blog)
+
 
 
 @main.route('/user/<uname>')
@@ -101,18 +129,18 @@ def update_pic(uname):
 @login_required
 def new_comment(blog_id):
     form = CommentForm()
-    blog=Blog.query.get(blog_id)
+    blog = Blog.query.get(blog_id)
     if form.validate_on_submit():
         content = form.content.data
 
-        
-        new_comment=Comment(content=content, user_id=current_user._get_current_object().id, blog_id=blog_id)
+        new_comment = Comment(
+            content=content, user_id=current_user._get_current_object().id, blog_id=blog_id)
         db.session.add(new_comment)
         db.session.commit()
-        
+
         return redirect(url_for('.new_comment', blog_id=blog_id))
 
-    comments = Comment.query.filter_by(blog_id = blog_id).all()
+    comments = Comment.query.filter_by(blog_id=blog_id).all()
     print(comments)
     return render_template('comments.html', form=form, blog=blog, comments=comments)
 
@@ -126,4 +154,4 @@ def delete_comment(id):
         comment.delete_comment()
         return redirect(url_for('main.index'))
 
-    return render_template('comment.html', form=form)
+    return render_template('comments.html', form=form)

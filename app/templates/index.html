@@ -16,34 +16,38 @@
   <div class="container">
     <h1> GENERAL QUOTES BLOG </h1>
     <div class="jumbotron">
-    <div class="well-lg" id="random">
-      <h1>Random Quote</h1> <br>
-      <p>quote ID: {{quote.id}}</p>
-      <p>{{quote.quote}}</p>
-      <p>Author: {{quote.author}}</p>
-      <p>{{quote.permalink}}</p>
-      <a href="{{url_for('main.index',quote_id = quote.id)}}" class="btn btn-info"> RANDOM</a>
-    </div>
+      <div class="well-lg" id="random">
+        <h1>Random Quote</h1> <br>
+        <p>quote ID: {{quote.id}}</p>
+        <p>{{quote.quote}}</p>
+        <p>Author: {{quote.author}}</p>
+        <p>{{quote.permalink}}</p>
+        <a href="{{url_for('main.index',quote_id = quote.id)}}" class="btn btn-info"> RANDOM</a>
+      </div>
     </div>
   </div>
   <div class="container">
-      <div class= "jumbotron">
-    <h1>QUOTES BLOG</h1>
-    
-    <div class="row">
-       
-      {% for blog in blogs %}
-      <div class="col-md-6">
+    <div class="jumbotron">
+      <h1>QUOTES BLOG</h1>
 
-        <h2>{{blog.title}}</h2>
-        <p>{{blog.content }}</p>
+      <div class="row">
 
-        <a href="{{url_for('main.new_comment',blog_id = blog.id)}}" class="btn btn-info"> Add a comment</a>
-        <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-danger">delete</a>
+        {% for blog in blogs %}
+        <div class="col-md-6">
 
-      </div>
+        
+            <h2>{{blog.title}}</h2>
+         
+          <p>{{blog.content }}</p>
 
-      {%endfor%}
+          <a href="{{url_for('main.new_comment',blog_id = blog.id)}}" class="btn btn-info">comment</a>
+          <a href="{{url_for('main.update_blog',id= blog.id)}}" class="btn btn-success">update</a>
+
+          <a href="{{url_for('main.delete_blog',id= blog.id)}}" class="btn btn-danger">delete</a>
+
+        </div>
+
+        {%endfor%}
       </div>
     </div>
   </div>
