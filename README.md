@@ -80,5 +80,6 @@ contact williammango2015@gmail.com for any kind of support.
 
 ### License
 
-**[MIT](Licence)**
+**[MIT](https://opensource.org/licenses/MIT)**
+**[licence](Licence)**
 Copyright (c) 2019 **manowilliam**

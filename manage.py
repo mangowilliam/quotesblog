@@ -6,7 +6,7 @@ from app import create_app, db
 from app.user import Blog, Comment, User
 
 # Creating app instance
-app = create_app('development')
+app = create_app('production')
 
 
 manager = Manager(app)
